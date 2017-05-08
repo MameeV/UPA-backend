@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Membership;
 use Response;
-use Illuminate/Support/Facades/Validator;
+use Illuminate\Support\Facades\Validator;
 use Purifier;
 
 class MembershipsController extends Controller
@@ -30,7 +30,7 @@ class MembershipsController extends Controller
       ];
 
       $validator = Validator::make(Purifier::clean($request->all()), $rules);
-        if($validator->fals())
+        if($validator->fails())
         {
           return Response::json(['error'=>"Error. Please Fill Out All Fields!"]);
         }
@@ -98,5 +98,30 @@ class MembershipsController extends Controller
       return Response::json(["success" => "Membership Deleted."]);
     }
 
+
+    public function getSpeciality()
+    {
+      $speciality = Membership::select("speciality")->distinct()->get();
+
+      return Response::json($speciality);
+    }
+    public function selectSpeciality(Request $request)
+    {
+      $rules = [
+        'speciality' => 'required',
+      ];
+
+      $validator = Validator::make(Purifier::clean($request->all()), $rules);
+      if($validator->fails())
+      {
+        return Response::json(['error'=>"ERROR! Fields Did Not Update!"]);
+      }
+
+      $speciality = $request->input('speciality');
+      $physicians = Membership::where("speciality", "=", $speciality)->select("physician")->get();
+
+      return Response::json($physicians);
+
+    }
 
 }
