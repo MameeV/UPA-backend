@@ -25,13 +25,13 @@ class SpecialityController extends Controller
     $validator = Validator::make(Purifier::clean($object->all()), $rules);
       if($validator->fails())
       {
-      return Response::json(['error'=>"Error! Please Enter a Speciality."])
+      return Response::json(['error'=>"Error! Please Enter a Speciality."]);
       }
 
     $speciality = new Speciality;
     $speciality->name = $request=input('name');
     $speciality->save();
-      return Response::json(['success', "Success! New Speciality Was Saved!"])
+      return Response::json(['success' => "Success! New Speciality Was Saved!"]);
   }
 
 
@@ -44,12 +44,12 @@ class SpecialityController extends Controller
     $validator = Validator::make(Purifier::clean($request->all()), $rules);
       if($validator->fails())
         {
-        return Response::json(['error'=>"Error! Speciality Did Not Update."])
-        }
+        return Response::json(['error'=>"Error! Speciality Did Not Update."]);
+      }
 
     $speciality = Speciality::find($id);
     $speciality->name = $request->input('name');
-      return Response::json(['success', "New Speciality Was Entered!"])
+      return Response::json(['success' => "New Speciality Was Entered!"]);
   }
 
   public function show($id)
@@ -62,6 +62,6 @@ class SpecialityController extends Controller
   {
     $speciality = Speciality::find($id);
     $speciality->delete();
-      return Response::json(['success', => "Speciality Deleted!"])
+      return Response::json(['success' => "Speciality Deleted!"]);
   }
 }

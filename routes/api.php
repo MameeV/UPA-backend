@@ -12,7 +12,8 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('getSpeciality', 'MembershipsController@getSpeciality');
-Route::post('selectSpeciality', 'MembershipsController@selectSpeciality');
+Route::get('getSpeciality', 'SpecialityController@index');
+//Route::post('selectSpeciality', 'SController@selectSpeciality');
+
 //Enter more routes here, leaving below as last route!
-//Route::any('{path}', 'UsersController@index')->where('path', '.+');
+Route::any('{path}', 'UsersController@index')->where('path', '.+');
