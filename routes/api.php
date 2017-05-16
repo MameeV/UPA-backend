@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 Route::get('getSpeciality', 'SpecialityController@index');
-//Route::post('selectSpeciality', 'SController@selectSpeciality');
+Route::post('selectSpeciality', 'SpecialityController@selectSpeciality');
 
 //Enter more routes here, leaving below as last route!
 Route::any('{path}', 'UsersController@index')->where('path', '.+');

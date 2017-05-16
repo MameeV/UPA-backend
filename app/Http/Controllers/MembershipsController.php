@@ -105,23 +105,7 @@ class MembershipsController extends Controller
 
       return Response::json($speciality);
     }
-    public function selectSpeciality(Request $request)
-    {
-      $rules = [
-        'speciality' => 'required',
-      ];
 
-      $validator = Validator::make(Purifier::clean($request->all()), $rules);
-      if($validator->fails())
-      {
-        return Response::json(['error'=>"ERROR! Fields Did Not Update!"]);
-      }
 
-      $speciality = $request->input('speciality');
-      $physicians = Membership::where("speciality", "=", $speciality)->select("physician")->get();
-
-      return Response::json($physicians);
-
-    }
 
 }

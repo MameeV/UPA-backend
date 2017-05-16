@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Speciality;
+use App\Membership;
 use Response;
 use Illuminate\Support\Facades\Validator;
 use Purifier;
@@ -63,5 +64,24 @@ class SpecialityController extends Controller
     $speciality = Speciality::find($id);
     $speciality->delete();
       return Response::json(['success' => "Speciality Deleted!"]);
+  }
+
+  public function selectSpeciality(Request $request)
+  {
+    $rules = [
+      'speciality' => 'required',
+    ];
+
+    $validator = Validator::make(Purifier::clean($request->all()), $rules);
+    if($validator->fails())
+    {
+      return Response::json(['error'=>"ERROR! Fields Did Not Update!"]);
+    }
+
+    $speciality = $request->input('speciality');
+    $physicians = Membership::where("speciality", "=", $speciality)->orWhere("speciality", "LIKE", $speciality.","."%")->orWhere("speciality", "LIKE", "%".",".$speciality)->select("physician")->get();
+
+    return Response::json($physicians);
+
   }
 }
