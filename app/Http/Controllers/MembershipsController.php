@@ -10,13 +10,17 @@ use Purifier;
 
 class MembershipsController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware("jwt.auth", ["only" => ["store", "update", "destroy"]]);
+  }
     //will get list
     public function index()
     {
       //create a query to get a list and receive on the Frontend
-      $articles = Membership::all();
+      $physicians = Membership::all();
 
-      return Response::json($articles);
+      return Response::json($physicians);
     }
 
     //store  - takes request param from frontend
@@ -35,16 +39,16 @@ class MembershipsController extends Controller
           return Response::json(['error'=>"Error. Please Fill Out All Fields!"]);
         }
 
-      $article = new Membership;
+      $physician = new Membership;
 
-      $article->speciality = $request->input('speciality');
-      $article->physician = $request->input('physician');
-      $article->practice = $request->input('practice');
-      $article->phone = $request->input('phone');
-      $article->website = $request->input('website');
+      $physician->speciality = $request->input('speciality');
+      $physician->physician = $request->input('physician');
+      $physician->practice = $request->input('practice');
+      $physician->phone = $request->input('phone');
+      $physician->website = $request->input('website');
 
 
-      $article->save();
+      $physician->save();
 
       //return a response from server to the frontend. Will get either a success or Error
       return Response::json(["success" => "Congratulations You Did It!"]);
@@ -66,16 +70,16 @@ class MembershipsController extends Controller
           return Response::json(['error'=>"ERROR! Fields Did Not Update!"]);
         }
 
-      $article = Membership::find($id);
+      $physician = Membership::find($id);
 
-      $article->speciality = $request->input('speciality');
-      $article->physician = $request->input('physician');
-      $article->practice = $request->input('practice');
-      $article->phone = $request->input('phone');
-      $article->website = $request->input('website');
+      $physician->speciality = $request->input('speciality');
+      $physician->physician = $request->input('physician');
+      $physician->practice = $request->input('practice');
+      $physician->phone = $request->input('phone');
+      $physician->website = $request->input('website');
 
 
-      $article->save();
+      $physician->save();
 
       return Response::json(["success" => "Membership Has Been Updated!"]);
     }
@@ -83,28 +87,22 @@ class MembershipsController extends Controller
     //shows individal article
     public function show($id)
     {
-      $article = Membership::find($id);
+      $physician = Membership::find($id);
 
-      return Response::json($article);
+      return Response::json($physician);
     }
 
     //delete function to delete a single article
     public function destroy($id)
     {
-      $article = Membership::find($id);
+      $physician = Membership::find($id);
 
-      $article->delete();
+      $physician->delete();
 
       return Response::json(["success" => "Membership Deleted."]);
     }
 
 
-    public function getSpeciality()
-    {
-      $speciality = Membership::select("speciality")->distinct()->get();
-
-      return Response::json($speciality);
-    }
 
 
 
