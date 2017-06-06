@@ -10,10 +10,11 @@ use App\User;
 use JWTAuth;
 use Auth;
 use File;
+use Response;
 
 class UsersController extends Controller
 {
-  public function __contruct()
+  public function __construct()
   {
     $this->middleware("jwt.auth", ["only" => ["getUser"]]);
   }
@@ -39,17 +40,18 @@ class UsersController extends Controller
 
     $check = User::where("email","=",$request->input("email"))->orWHERE("name","=",$request->input("username"))->first();
 
-    if(!empty($check))
+    if(empty($check))
     {
       $user = new User;
-      $user->name = $request->input("username")
-      $user->email = $request->("email");
+      $user->name = $request->input("username");
+      $user->email = $request->input("email");
       $user->password - Hash::make($request->input("password"));
       $user->roleID = 2;
       $user->save();
 
       return Response::json(["success"=>"Thanks for signing up!"]);
     }
+  }
 
     public function SignIn(Request $request)
     {
@@ -67,8 +69,8 @@ class UsersController extends Controller
       $email = $request->input("email");
       $password = $request->input("password");
 
-      $cred = compat("email","password", ["email","password"]);
-      $token = JWAuth::attempt($cred);
+      $cred = compact("email","password", ["email","password"]);
+      $token = JWTAuth::attempt($cred);
 
       return Response::json(compact("token"));
     }
@@ -79,5 +81,5 @@ class UsersController extends Controller
       $user = User::find($user->id);
       return Response::json($user);
     }
+
   }
-}

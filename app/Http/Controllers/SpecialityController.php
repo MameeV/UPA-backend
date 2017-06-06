@@ -82,6 +82,5 @@ class SpecialityController extends Controller
     $physicians = Membership::where("speciality", "=", $speciality)->orWhere("speciality", "LIKE", $speciality.","."%")->orWhere("speciality", "LIKE", "%".",".$speciality)->orWhere("speciality", "LIKE", "%".",".$speciality.","."%")->select("id", "physician")->get();
 
     return Response::json($physicians);
-
   }
 }

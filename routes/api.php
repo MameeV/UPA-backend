@@ -20,8 +20,8 @@ Route::post('updateRole/{id}', 'RolesController@update');
 Route::get('showRole/{id}', 'RolesController@show');
 Route::post('deleteRole/{id}', 'RolesController@destroy');
 
-Route::post('signup', 'UsersController@signup');
-Route::post('signin', 'UsersController@signin');
+Route::post('signup', 'UsersController@SignUp');
+Route::post('signin', 'UsersController@SignIn');
 Route::get('getUser', 'UsersController@getUser');
 
 Route::any('{path}', 'UsersController@index')->where('path', '.+');

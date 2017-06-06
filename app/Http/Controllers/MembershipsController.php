@@ -78,7 +78,6 @@ class MembershipsController extends Controller
       $physician->phone = $request->input('phone');
       $physician->website = $request->input('website');
 
-
       $physician->save();
 
       return Response::json(["success" => "Membership Has Been Updated!"]);
@@ -101,9 +100,4 @@ class MembershipsController extends Controller
 
       return Response::json(["success" => "Membership Deleted."]);
     }
-
-
-
-
-
 }

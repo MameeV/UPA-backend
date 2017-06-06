@@ -13,7 +13,6 @@ class RolesController extends Controller
   public function index ()
   {
     $role = Role:all();
-
     return Response::json($role);
   }
 
@@ -58,16 +57,13 @@ class RolesController extends Controller
   public function show($id)
   {
     $role = Role::find($role->$id);
-
     return Response::json($role);
   }
 
   public function destroy($id)
   {
     $role = Role::find($id);
-
     $role->delete();
-
     return Response::json(['success' => "Role Deleted!"]);
   }
 }
