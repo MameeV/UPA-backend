@@ -28,7 +28,13 @@ class SpecialityController extends Controller
       {
       return Response::json(['error'=>"Error! Please Enter a Speciality."]);
       }
-
+    
+    $user=Auth::user();
+    if($user->roleID != 1)
+    {
+      return Response::json(['error' => "Function Not Allowed!"]);
+    }
+      
     $speciality = new Speciality;
     $speciality->name = $request=input('name');
     $speciality->save();
@@ -47,7 +53,13 @@ class SpecialityController extends Controller
         {
         return Response::json(['error'=>"Error! Speciality Did Not Update."]);
       }
-
+      
+    $user=Auth::user();
+    if($user->roleID != 1)
+    {
+      return Response::json(['error' => "Function Not Allowed!"]);
+    }
+      
     $speciality = Speciality::find($id);
     $speciality->name = $request->input('name');
       return Response::json(['success' => "New Speciality Was Entered!"]);
@@ -61,6 +73,12 @@ class SpecialityController extends Controller
 
   public function destroy($id)
   {
+    $user=Auth::user();
+    if($user->roleID != 1)
+    {
+      return Response::json(['error' => "Function Not Allowed!"]);
+    }
+    
     $speciality = Speciality::find($id);
     $speciality->delete();
       return Response::json(['success' => "Speciality Deleted!"]);

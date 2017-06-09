@@ -13,6 +13,7 @@ Route::get('showPhysician/{id}', 'MembershipsController@show');
 
 Route::get('getPhysician', 'MembershipsController@index');
 Route::post('selectPhysician', 'MembershipsController@selectPhysician');
+Route::post('deleteMember', 'MembershipsController@destroy');
 
 Route::get('getRoles', 'RolesController@index');
 Route::post('storeRole', 'RolesController@store');
@@ -23,5 +24,6 @@ Route::post('deleteRole/{id}', 'RolesController@destroy');
 Route::post('signup', 'UsersController@SignUp');
 Route::post('signin', 'UsersController@SignIn');
 Route::get('getUser', 'UsersController@getUser');
+//Route::post('contact', 'UsersController@contact');
 
 Route::any('{path}', 'UsersController@index')->where('path', '.+');

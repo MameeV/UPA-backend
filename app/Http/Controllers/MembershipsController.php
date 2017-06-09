@@ -38,7 +38,13 @@ class MembershipsController extends Controller
         {
           return Response::json(['error'=>"Error. Please Fill Out All Fields!"]);
         }
-
+        
+      $user=Auth::user();
+      if($user->roleID != 1)
+      {
+        return Response::json(['error' => "Function Not Allowed!"]);
+      }
+        
       $physician = new Membership;
 
       $physician->speciality = $request->input('speciality');
@@ -65,11 +71,15 @@ class MembershipsController extends Controller
       ];
 
       $validator = Validator::make(Purifier::clean($request->all()), $rules);
-        if($validator->fals())
+        if($validator->fails())
         {
           return Response::json(['error'=>"ERROR! Fields Did Not Update!"]);
         }
-
+      $user=Auth::user();
+      if($user->roleID != 1)
+      {
+        return Response::json(['error' => "Function Not Allowed!"]);
+      }
       $physician = Membership::find($id);
 
       $physician->speciality = $request->input('speciality');
@@ -94,10 +104,17 @@ class MembershipsController extends Controller
     //delete function to delete a single article
     public function destroy($id)
     {
+      $user=Auth::user();
+      if($user->roleID != 1)
+      {
+        return Response::json(['error' => "Function Not Allowed!"]);
+      }
+      
       $physician = Membership::find($id);
 
       $physician->delete();
 
-      return Response::json(["success" => "Membership Deleted."]);
+      return Response::json(["success" => "Member Deleted!"]);
     }
+      
 }

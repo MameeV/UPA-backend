@@ -81,5 +81,28 @@ class UsersController extends Controller
       $user = User::find($user->id);
       return Response::json($user);
     }
-
+    
+    public function contact(Request $request)
+    {
+      $rules = [
+        'email' => 'required',
+        'message' => 'required'
+      ];
+      
+      $validator = Validator::make(Purifier::clean($request->all()), $rules);
+      if($validator->fails())
+      {
+        return Response::json(['error'=>"Error. Please fill out all fields!"]);
+      }
+      $email = $request->input('email');
+      $body = $request->input('message');
+      
+      Mail::send('emails.contact', array('email'=>$email, 'body'=>$body),
+      function($email, $body, $message)
+      {
+        $message->from($email, $email);
+        $message->to('medicaladvocacypartners@gmail.com', 'Medical Advocacy Partners')->subject('UPA CIN');
+      });
+        return Response::json(['success'=>"Thank You! Your Message Was Sent."]);
+    }
   }
