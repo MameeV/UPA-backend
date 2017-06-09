@@ -16,7 +16,7 @@ class UsersController extends Controller
 {
   public function __construct()
   {
-    $this->middleware("jwt.auth", ["only" => ["getUser"]]);
+    $this->middleware("jwt.auth", ["only" => ["getUser", "signUp", "signIn"]]);
   }
 
   public function index()
