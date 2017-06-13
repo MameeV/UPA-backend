@@ -7,6 +7,8 @@ use App\Membership;
 use Response;
 use Illuminate\Support\Facades\Validator;
 use Purifier;
+use Auth;
+use JWTAuth;
 
 class MembershipsController extends Controller
 {
@@ -18,7 +20,7 @@ class MembershipsController extends Controller
     public function index()
     {
       //create a query to get a list and receive on the Frontend
-      $physicians = Membership::all();
+      $physicians = Membership::orderBy("physician","asc")->get();
 
       return Response::json($physicians);
     }

@@ -8,6 +8,7 @@ use App\Membership;
 use Response;
 use Illuminate\Support\Facades\Validator;
 use Purifier;
+use Auth;
 
 class SpecialityController extends Controller
 {
@@ -97,7 +98,7 @@ class SpecialityController extends Controller
     }
 
     $speciality = $request->input('speciality');
-    $physicians = Membership::where("speciality", "=", $speciality)->orWhere("speciality", "LIKE", $speciality.","."%")->orWhere("speciality", "LIKE", "%".",".$speciality)->orWhere("speciality", "LIKE", "%".",".$speciality.","."%")->select("id", "physician")->get();
+    $physicians = Membership::where("speciality", "=", $speciality)->orWhere("speciality", "LIKE", $speciality.","."%")->orWhere("speciality", "LIKE", "%".",".$speciality)->orWhere("speciality", "LIKE", "%".",".$speciality.","."%")->select("id", "physician")->orderBy("physician","asc")->get();
 
     return Response::json($physicians);
   }

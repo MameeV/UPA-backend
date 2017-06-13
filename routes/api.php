@@ -15,6 +15,7 @@ Route::get('getPhysician', 'MembershipsController@index');
 Route::post('selectPhysician', 'MembershipsController@selectPhysician');
 Route::post('deleteMember/{id}', 'MembershipsController@destroy');
 Route::post('updateMember/{id}', 'MembershipsController@update');
+Route::post('storeMember', 'MembershipsController@store');
 
 Route::get('getRoles', 'RolesController@index');
 Route::post('storeRole', 'RolesController@store');
