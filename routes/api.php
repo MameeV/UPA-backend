@@ -13,7 +13,8 @@ Route::get('showPhysician/{id}', 'MembershipsController@show');
 
 Route::get('getPhysician', 'MembershipsController@index');
 Route::post('selectPhysician', 'MembershipsController@selectPhysician');
-Route::post('deleteMember', 'MembershipsController@destroy');
+Route::post('deleteMember/{id}', 'MembershipsController@destroy');
+Route::post('updateMember/{id}', 'MembershipsController@update');
 
 Route::get('getRoles', 'RolesController@index');
 Route::post('storeRole', 'RolesController@store');

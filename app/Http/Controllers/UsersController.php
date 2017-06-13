@@ -33,7 +33,7 @@ class UsersController extends Controller
     ];
 
     $validator = Validator::make(Purifier::clean($request->all()),$rules);
-    if($validator = Validator->fails())
+    if($validator->fails())
     {
       return Response::json(['error' => "Please fill out all fields"]);
     }
@@ -45,7 +45,7 @@ class UsersController extends Controller
       $user = new User;
       $user->name = $request->input("username");
       $user->email = $request->input("email");
-      $user->password - Hash::make($request->input("password"));
+      $user->password = Hash::make($request->input("password"));
       $user->roleID = 2;
       $user->save();
 
