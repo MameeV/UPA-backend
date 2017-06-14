@@ -28,4 +28,4 @@ Route::post('signin', 'UsersController@SignIn');
 Route::get('getUser', 'UsersController@getUser');
 //Route::post('contact', 'UsersController@contact');
 
-Route::any('{path}', 'UsersController@index')->where('path', '.+');
+Route::any('{path?}', 'UsersController@index')->where('path', '.+');
